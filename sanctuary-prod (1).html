@@ -1,0 +1,2167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; script-src 'self' 'unsafe-inline'; connect-src https://api.anthropic.com;">
+<title>🌿 Sanctuary</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>/* ═══════════════════════════════════════════════
+   SANCTUARY — Production CSS
+   ═══════════════════════════════════════════════ */
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --green: #1D9E75;
+  --green-d: #0F6E56;
+  --green-xl: #085041;
+  --green-bg: #E8F8F1;
+  --green-bg2: #d0f0e2;
+  --cream: #FDFCF9;
+  --cream2: #F5F3EE;
+  --cream3: #EDE9E1;
+  --text: #1C1917;
+  --text2: #6B6560;
+  --text3: #9E9892;
+  --border: #E8E4DC;
+  --border2: #D4CFC4;
+  --shadow: 0 2px 16px rgba(28,25,23,.07);
+  --shadow2: 0 4px 32px rgba(28,25,23,.12);
+  --r: 14px;
+  --r2: 10px;
+  --r3: 8px;
+  --crisis: #991B1B;
+  --crisis-bg: #FEF2F2;
+  --crisis-border: #FECACA;
+}
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--cream2);
+  color: var(--text);
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 16px;
+}
+
+.hide { display: none !important; }
+
+/* ── CONSENT ── */
+.consent-screen {
+  background: var(--cream);
+  border-radius: 20px;
+  padding: 48px 40px;
+  max-width: 520px;
+  width: 100%;
+  box-shadow: var(--shadow2);
+  border: 1px solid var(--border);
+  animation: fadeUp .3s ease-out;
+}
+@keyframes fadeUp { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
+
+.consent-logo { font-size: 52px; text-align: center; margin-bottom: 12px; line-height: 1; }
+.consent-title { font-family: 'DM Serif Display', serif; font-size: 28px; font-weight: 400; text-align: center; color: var(--text); margin-bottom: 6px; letter-spacing: -.3px; }
+.consent-sub { font-size: 14px; color: var(--text2); line-height: 1.7; text-align: center; margin-bottom: 32px; }
+.consent-fld { margin-bottom: 16px; }
+.consent-lbl { font-size: 12px; font-weight: 600; color: var(--text2); margin-bottom: 7px; display: block; text-transform: uppercase; letter-spacing: .5px; }
+.optional-lbl { font-weight: 400; color: var(--text3); text-transform: none; letter-spacing: 0; font-size: 11px; }
+.consent-inp {
+  width: 100%;
+  padding: 12px 15px;
+  border: 1.5px solid var(--border2);
+  border-radius: var(--r2);
+  font-size: 14px;
+  font-family: inherit;
+  outline: none;
+  color: var(--text);
+  background: var(--cream2);
+  transition: border-color .2s, background .2s;
+}
+.consent-inp:focus { border-color: var(--green); background: #fff; }
+.consent-inp.error { border-color: #DC2626; }
+.field-err { font-size: 11px; color: #DC2626; margin-top: 4px; display: block; min-height: 14px; }
+.consent-cards { margin: 24px 0; display: flex; flex-direction: column; gap: 10px; }
+.consent-card { display: flex; align-items: flex-start; gap: 14px; padding: 14px 16px; background: var(--cream2); border-radius: var(--r2); border: 1px solid var(--border); }
+.consent-card-icon { font-size: 22px; flex-shrink: 0; }
+.consent-card-title { font-size: 13px; font-weight: 700; margin-bottom: 2px; }
+.consent-card-sub { font-size: 12px; color: var(--text2); line-height: 1.55; }
+.consent-check { display: flex; align-items: flex-start; gap: 11px; margin-bottom: 10px; cursor: pointer; padding: 8px 0; }
+.consent-check input { margin-top: 3px; accent-color: var(--green); cursor: pointer; flex-shrink: 0; width: 16px; height: 16px; }
+.consent-check-text { font-size: 13px; color: var(--text2); line-height: 1.55; }
+.begin-btn {
+  width: 100%;
+  margin-top: 24px;
+  padding: 14px;
+  border: none;
+  border-radius: var(--r2);
+  background: var(--green);
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background .2s, transform .1s;
+  letter-spacing: -.1px;
+}
+.begin-btn:hover { background: var(--green-d); }
+.begin-btn:active { transform: scale(.98); }
+.begin-btn:disabled { background: var(--border2); cursor: not-allowed; }
+
+/* ── APP SHELL ── */
+.app {
+  display: flex;
+  height: 680px;
+  width: 100%;
+  max-width: 980px;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  overflow: hidden;
+  background: var(--cream);
+  box-shadow: var(--shadow2);
+}
+
+/* ── SIDEBAR ── */
+.sb { width: 210px; border-right: 1px solid var(--border); display: flex; flex-direction: column; background: var(--cream2); flex-shrink: 0; }
+.sb-head { padding: 18px 16px 14px; border-bottom: 1px solid var(--border); }
+.sb-logo { font-family: 'DM Serif Display', serif; font-size: 20px; font-weight: 400; color: var(--text); display: flex; align-items: center; gap: 8px; letter-spacing: -.2px; }
+.sb-tg { font-size: 11px; color: var(--text3); margin-top: 2px; letter-spacing: .2px; }
+.sb-usr { padding: 12px 14px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 10px; }
+.av { width: 34px; height: 34px; border-radius: 50%; background: var(--green-bg); display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; color: var(--green-xl); flex-shrink: 0; border: 1.5px solid var(--green-bg2); }
+.sb-un { font-size: 13px; font-weight: 700; color: var(--text); line-height: 1.2; }
+.sb-ur { font-size: 11px; color: var(--text3); }
+
+.nav { padding: 10px; flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 3px; }
+.ni {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 13px; border-radius: var(--r2);
+  cursor: pointer; font-size: 13px; font-weight: 600;
+  color: var(--text2); transition: all .15s;
+  border: 1.5px solid transparent; user-select: none;
+}
+.ni .ni-icon { font-size: 16px; flex-shrink: 0; width: 22px; text-align: center; }
+.ni .ni-lbl { flex: 1; line-height: 1; }
+.ni:hover { background: var(--cream3); color: var(--text); }
+.ni.on { background: #fff; color: var(--green-xl); border-color: var(--green-bg2); box-shadow: 0 1px 6px rgba(29,158,117,.10); }
+.ni.on .ni-lbl { font-weight: 700; }
+.ni-badge { background: var(--green); color: #fff; font-size: 9px; font-weight: 700; padding: 2px 6px; border-radius: 10px; line-height: 1.4; }
+
+.sb-bottom { padding: 10px 12px; border-top: 1px solid var(--border); }
+.mood-label { font-size: 10px; font-weight: 600; color: var(--text3); text-transform: uppercase; letter-spacing: .4px; margin-bottom: 6px; }
+.mood-row { display: flex; gap: 4px; }
+.mood-btn {
+  flex: 1; padding: 5px 2px; text-align: center;
+  border-radius: 6px; font-size: 15px; cursor: pointer;
+  background: transparent; border: 1px solid transparent;
+  transition: all .15s;
+}
+.mood-btn:hover { background: var(--cream3); }
+.mood-btn.on { background: var(--green-bg); border-color: var(--green-bg2); }
+
+/* ── MAIN ── */
+.main { flex: 1; display: flex; flex-direction: column; min-height: 0; overflow: hidden; background: #fff; }
+.topbar {
+  display: flex; align-items: center;
+  padding: 14px 18px 12px; border-bottom: 1px solid var(--border);
+  background: var(--cream); flex-shrink: 0; gap: 10px;
+}
+.topbar-title { font-family: 'DM Serif Display', serif; font-size: 19px; font-weight: 400; color: var(--text); flex: 1; letter-spacing: -.2px; }
+.topbar-sub { font-size: 11px; color: var(--text3); }
+.topbar-action {
+  background: var(--green); color: #fff; border: none;
+  border-radius: var(--r3); padding: 6px 13px; font-size: 12px;
+  font-weight: 600; font-family: inherit; cursor: pointer; transition: background .2s;
+}
+.topbar-action:hover { background: var(--green-d); }
+
+.view { flex: 1; overflow-y: auto; padding: 16px 18px; min-height: 0; display: none; }
+.view.on { display: block; }
+#Chat.view.on { display: flex; padding: 0; flex-direction: column; flex: 1; min-height: 0; overflow: hidden; }
+
+/* ── CHAT ── */
+.chat-v { display: flex; flex-direction: column; height: 100%; min-height: 0; }
+.msgs {
+  flex: 1; overflow-y: auto; padding: 14px 18px;
+  display: flex; flex-direction: column; gap: 14px;
+  scroll-behavior: smooth;
+}
+.msg { display: flex; gap: 10px; align-items: flex-start; animation: slideIn .25s ease-out; }
+.msg.u { flex-direction: row-reverse; }
+@keyframes slideIn { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
+.mav { width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+.mav.ai { background: var(--green-bg); color: var(--green-xl); border: 1.5px solid var(--green-bg2); }
+.mav.u { background: #EEEDFE; color: #534AB7; border: 1.5px solid #CECBF6; }
+.bub { max-width: 78%; padding: 11px 15px; font-size: 13.5px; line-height: 1.7; word-wrap: break-word; }
+.bub.ai { background: var(--cream2); border-radius: 4px 16px 16px 16px; color: var(--text); border: 1px solid var(--border); }
+.bub.u { background: #EEEDFE; color: #3C3489; border-radius: 16px 4px 16px 16px; border: 1px solid #CECBF6; }
+.bub p + p { margin-top: 8px; }
+
+/* Q-card */
+.q-card { background: var(--green-bg); border: 1.5px solid var(--green-bg2); border-radius: 14px; padding: 14px 16px; margin: 4px 0; }
+.q-card-intro { font-size: 12px; color: var(--green-d); font-weight: 600; margin-bottom: 10px; display: flex; align-items: center; gap: 6px; }
+.q-options { display: flex; flex-wrap: wrap; gap: 7px; }
+.q-opt {
+  background: #fff; border: 1.5px solid var(--green-bg2);
+  border-radius: 20px; padding: 6px 14px; font-size: 12px;
+  color: var(--green-xl); font-weight: 600; cursor: pointer;
+  transition: all .15s; font-family: inherit;
+}
+.q-opt:hover { background: var(--green); color: #fff; border-color: var(--green); }
+
+/* Typing dots */
+.dot { width: 5px; height: 5px; border-radius: 50%; background: var(--text3); display: inline-block; animation: bl 1.3s infinite; margin: 0 2px; }
+.dot:nth-child(2) { animation-delay: .2s; }
+.dot:nth-child(3) { animation-delay: .4s; }
+@keyframes bl { 0%,80%,100%{opacity:.2} 40%{opacity:1} }
+
+/* Crisis banner */
+.crisis-banner { background: var(--crisis-bg); border: 2px solid var(--crisis-border); border-radius: 12px; padding: 14px 16px; margin: 0 14px 10px; }
+.crisis-banner-t { font-size: 13px; font-weight: 700; color: var(--crisis); margin-bottom: 6px; }
+.crisis-banner-s { font-size: 12px; color: #B91C1C; line-height: 1.6; }
+.crisis-banner-num { font-size: 15px; font-weight: 700; color: #DC2626; display: block; margin: 5px 0; }
+.crisis-link { color: #DC2626; font-weight: 700; font-size: 12px; }
+.crisis-dismiss { margin-top: 10px; background: transparent; border: 1.5px solid var(--crisis-border); border-radius: 6px; padding: 5px 12px; font-size: 12px; color: #B91C1C; cursor: pointer; font-family: inherit; font-weight: 600; transition: all .15s; }
+.crisis-dismiss:hover { background: var(--crisis-border); }
+
+/* Composer */
+.cw { flex-shrink: 0; padding: 10px 14px 14px; }
+.cb {
+  border: 1.5px solid var(--green); border-radius: 18px;
+  background: var(--cream2); box-shadow: 0 0 0 4px rgba(29,158,117,.06);
+  transition: box-shadow .2s;
+}
+.cb:focus-within { box-shadow: 0 0 0 5px rgba(29,158,117,.11); }
+.cta {
+  width: 100%; padding: 13px 15px 5px; background: transparent;
+  border: none; outline: none; font-size: 14px; font-family: inherit;
+  color: var(--text); resize: none; line-height: 1.5;
+  max-height: 120px; overflow-y: auto; display: block;
+  border-radius: 18px 18px 0 0;
+}
+.cta::placeholder { color: var(--text3); }
+.char-count { font-size: 10px; color: var(--text3); text-align: right; padding: 0 14px 0; }
+.char-count.warn { color: #DC2626; }
+.cbar { display: flex; align-items: center; gap: 6px; padding: 4px 10px 10px; }
+.ico {
+  width: 33px; height: 33px; border-radius: 50%;
+  border: 1.5px solid var(--border2); background: transparent;
+  cursor: pointer; display: flex; align-items: center; justify-content: center;
+  color: var(--text2); transition: all .2s;
+}
+.ico:hover { background: var(--cream3); color: var(--text); }
+.ico svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.ico.lis { background: #FEF2F2; border-color: #FECACA; color: #DC2626; animation: mp .8s infinite; }
+@keyframes mp { 0%,100%{box-shadow:0 0 0 0 rgba(220,38,38,.3)} 50%{box-shadow:0 0 0 5px rgba(220,38,38,0)} }
+.sp2 { flex: 1; }
+.vs { font-size: 11px; color: var(--text3); }
+.snd {
+  width: 38px; height: 38px; border-radius: 50%; background: var(--green);
+  border: none; cursor: pointer; display: flex; align-items: center;
+  justify-content: center; transition: all .2s; box-shadow: 0 2px 8px rgba(29,158,117,.3);
+}
+.snd:hover { background: var(--green-d); transform: scale(1.04); }
+.snd:disabled { background: var(--border2); cursor: not-allowed; box-shadow: none; transform: none; }
+.snd svg { width: 15px; height: 15px; }
+.stop-btn { display: none; justify-content: center; align-items: center; padding: 7px; background: #FEF2F2; border-top: 1px solid var(--crisis-border); color: #DC2626; font-size: 11px; font-weight: 700; cursor: pointer; }
+.composer-hint { font-size: 10px; color: var(--text3); text-align: center; margin-top: 5px; }
+
+/* Error state in chat */
+.msg-error { background: #FEF2F2; border-radius: 8px; padding: 8px 12px; font-size: 12px; color: #B91C1C; display: flex; align-items: center; gap: 8px; }
+.retry-btn { background: var(--green); color: #fff; border: none; border-radius: 5px; padding: 3px 10px; font-size: 11px; font-weight: 700; cursor: pointer; font-family: inherit; }
+
+/* ── HEALTH ── */
+.section-title { font-family: 'DM Serif Display', serif; font-size: 16px; font-weight: 400; color: var(--text); margin-bottom: 12px; letter-spacing: -.1px; }
+.calm { background: var(--green-bg); border-radius: var(--r2); padding: 14px 16px; margin-bottom: 14px; border-left: 3px solid var(--green); }
+.calm-t { font-size: 13px; font-weight: 700; color: var(--green-xl); margin-bottom: 3px; }
+.calm-s { font-size: 12px; color: var(--green-d); line-height: 1.55; }
+.dis { background: var(--cream2); border-radius: var(--r2); padding: 11px 14px; margin-bottom: 12px; border: 1px solid var(--border); }
+.dis-t { font-size: 11px; font-weight: 700; color: var(--text2); margin-bottom: 2px; text-transform: uppercase; letter-spacing: .4px; }
+.dis-s { font-size: 12px; color: var(--text2); line-height: 1.5; }
+.chips { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 14px; }
+.chip {
+  padding: 7px 14px; border-radius: 22px; font-size: 12px;
+  font-weight: 600; border: 1.5px solid var(--border2);
+  cursor: pointer; color: var(--text2); background: var(--cream);
+  transition: all .15s;
+}
+.chip:hover { border-color: var(--green); color: var(--green); }
+.chip.on { background: var(--green-bg); color: var(--green-xl); border-color: var(--green); }
+.abtn {
+  width: 100%; padding: 11px; border-radius: var(--r3); border: none;
+  background: var(--green); color: #fff; font-size: 13px; font-weight: 700;
+  cursor: pointer; font-family: inherit; margin-bottom: 12px;
+  transition: all .2s; letter-spacing: -.1px;
+}
+.abtn:hover { background: var(--green-d); }
+.abtn:disabled { background: var(--border2); color: var(--text3); cursor: not-allowed; }
+.prompt-card { background: var(--cream2); border: 1px solid var(--border); border-radius: var(--r2); padding: 14px 16px; margin-bottom: 10px; cursor: pointer; transition: all .2s; }
+.prompt-card:hover { border-color: var(--green); background: var(--green-bg); }
+.prompt-icon { font-size: 18px; margin-bottom: 5px; }
+.prompt-title { font-size: 13px; font-weight: 700; margin-bottom: 2px; }
+.prompt-sub { font-size: 11px; color: var(--text2); line-height: 1.45; }
+
+/* Breathing */
+.breath-card { background: linear-gradient(135deg,var(--green-bg) 0%,#fff 100%); border: 1.5px solid var(--green-bg2); border-radius: 14px; padding: 18px; margin-bottom: 14px; text-align: center; }
+.breath-circle {
+  width: 80px; height: 80px; border-radius: 50%; border: 3px solid var(--green);
+  margin: 12px auto; display: flex; align-items: center; justify-content: center;
+  font-size: 13px; font-weight: 700; color: var(--green-xl);
+  transition: all 4s ease-in-out; background: var(--green-bg); cursor: pointer;
+}
+.breath-circle.expand { transform: scale(1.4); background: var(--green-bg2); }
+
+/* ── PEOPLE ── */
+.pcard { border: 1.5px solid var(--border); border-radius: var(--r2); padding: 13px 15px; margin-bottom: 9px; cursor: pointer; transition: all .15s; background: var(--cream); display: flex; align-items: flex-start; gap: 10px; }
+.pcard:hover { border-color: var(--green); background: var(--green-bg); }
+.pcard-info { flex: 1; }
+.pcard-name { font-size: 13px; font-weight: 700; color: var(--text); }
+.pcard-rel { font-size: 11px; color: var(--text2); margin-top: 2px; }
+.pcard-note { font-size: 11px; color: var(--text3); margin-top: 5px; font-style: italic; }
+.pcard-del { background: none; border: none; color: var(--text3); cursor: pointer; font-size: 14px; padding: 0; line-height: 1; transition: color .15s; flex-shrink: 0; }
+.pcard-del:hover { color: #DC2626; }
+
+/* ── REMINDERS ── */
+.rcard { border: 1.5px solid var(--border); border-radius: var(--r2); padding: 13px 15px; margin-bottom: 9px; background: var(--cream); display: flex; align-items: flex-start; gap: 10px; }
+.rcard-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--green); flex-shrink: 0; margin-top: 4px; }
+.rcard-text { font-size: 13px; font-weight: 600; color: var(--text); flex: 1; }
+.rcard-date { font-size: 11px; color: var(--text3); margin-top: 2px; }
+.del-btn { background: none; border: none; color: var(--text3); cursor: pointer; font-size: 16px; padding: 0; line-height: 1; transition: color .15s; }
+.del-btn:hover { color: #DC2626; }
+
+/* ── SETTINGS ── */
+.sc { border: 1.5px solid var(--border); border-radius: var(--r2); padding: 16px; margin-bottom: 14px; background: var(--cream); }
+.st2 { font-size: 14px; font-weight: 700; margin-bottom: 6px; color: var(--text); }
+.ss { font-size: 12px; color: var(--text2); line-height: 1.55; margin-bottom: 10px; }
+.sbtn { padding: 9px 16px; border-radius: var(--r3); border: none; font-size: 12px; font-weight: 700; cursor: pointer; font-family: inherit; transition: all .2s; }
+.sbtn.p { background: var(--green); color: #fff; }
+.sbtn.p:hover { background: var(--green-d); }
+.sbtn.dd { background: #FEF2F2; color: #DC2626; border: 1.5px solid #FECACA; }
+.sbtn.dd:hover { background: #FECACA; }
+.key-warning { background: #FFFBEB; border: 1.5px solid #FDE68A; border-radius: var(--r3); padding: 10px 13px; font-size: 12px; color: #92400E; margin-bottom: 12px; line-height: 1.5; }
+
+/* ── MODALS ── */
+.md { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(28,25,23,.45); display: flex; align-items: center; justify-content: center; z-index: 1000; backdrop-filter: blur(2px); animation: fadeIn .15s ease-out; }
+@keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+.md-c { background: var(--cream); border-radius: 16px; padding: 26px; max-width: 420px; width: 92%; box-shadow: var(--shadow2); border: 1px solid var(--border); }
+.md-t { font-family: 'DM Serif Display', serif; font-size: 18px; font-weight: 400; margin-bottom: 18px; color: var(--text); }
+.md-f { display: flex; flex-direction: column; gap: 11px; }
+.md-in { padding: 10px 13px; border: 1.5px solid var(--border2); border-radius: var(--r3); font-size: 13px; font-family: inherit; outline: none; color: var(--text); background: var(--cream2); transition: border-color .2s; width: 100%; }
+.md-in:focus { border-color: var(--green); background: #fff; }
+.md-ac { display: flex; gap: 8px; margin-top: 10px; }
+.md-ac button { flex: 1; padding: 10px; border-radius: var(--r3); border: none; font-size: 13px; font-weight: 700; cursor: pointer; font-family: inherit; transition: all .2s; }
+.md-ac .sbtn { background: var(--green); color: #fff; }
+.md-ac .sbtn:hover { background: var(--green-d); }
+.md-ac .ccl { background: var(--cream3); color: var(--text); }
+.md-ac .ccl:hover { background: var(--border2); }
+.elab { font-size: 11px; font-weight: 700; color: var(--text2); margin-bottom: 5px; display: block; text-transform: uppercase; letter-spacing: .4px; }
+.efld { margin-bottom: 12px; }
+.eif { padding: 9px 12px; border: 1.5px solid var(--border2); border-radius: var(--r3); font-size: 13px; font-family: inherit; width: 100%; outline: none; color: var(--text); background: var(--cream2); }
+.eif:focus { border-color: var(--green); }
+.em-c { background: var(--cream); border-radius: 16px; padding: 26px; max-width: 500px; width: 92%; max-height: 85vh; overflow-y: auto; box-shadow: var(--shadow2); border: 1px solid var(--border); }
+.em-h { font-family: 'DM Serif Display', serif; font-size: 20px; font-weight: 400; margin-bottom: 18px; color: var(--text); }
+.ema { display: flex; gap: 8px; margin-top: 18px; }
+.ema button { flex: 1; padding: 10px; border-radius: var(--r3); border: none; font-size: 13px; font-weight: 700; cursor: pointer; font-family: inherit; transition: all .2s; }
+.ema .sbtn { background: var(--green); color: #fff; }
+.ema .ccl { background: var(--cream3); color: var(--text); }
+.ema .ccl:hover { background: var(--border2); }
+
+/* Toast */
+#toastEl {
+  position: fixed; bottom: -100px; left: 50%; transform: translateX(-50%);
+  background: var(--text); color: var(--cream); padding: 11px 20px;
+  border-radius: 10px; font-size: 13px; z-index: 1001;
+  transition: bottom .3s; white-space: nowrap; font-weight: 500;
+  pointer-events: none;
+}
+#toastEl.show { bottom: 22px; }
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 4px; }
+
+/* Loading skeleton */
+.skeleton { background: linear-gradient(90deg,var(--cream2) 25%,var(--cream3) 50%,var(--cream2) 75%); background-size: 200% 100%; animation: shimmer 1.5s infinite; border-radius: 6px; }
+@keyframes shimmer { 0%{background-position:200% 0} 100%{background-position:-200% 0} }
+
+/* Focus styles for accessibility */
+:focus-visible { outline: 2px solid var(--green); outline-offset: 2px; }
+
+@media (max-width: 640px) {
+  .app { flex-direction: column; height: auto; border-radius: 16px; max-height: 100vh; }
+  .sb { width: 100%; flex-direction: row; flex-wrap: wrap; border-right: none; border-bottom: 1px solid var(--border); }
+  .nav { flex-direction: row; padding: 8px; flex-wrap: wrap; gap: 4px; }
+  .ni { padding: 7px 10px; font-size: 12px; }
+  .main { min-height: 500px; }
+  .consent-screen { padding: 32px 20px; }
+}
+</style>
+</head>
+<body>
+
+<!-- CONSENT SCREEN -->
+<div id="consentEl" class="consent-screen" role="main" aria-label="Welcome to Sanctuary">
+  <div class="consent-logo" aria-hidden="true">🌿</div>
+  <h1 class="consent-title">Welcome to Sanctuary</h1>
+  <p class="consent-sub">A gentle space just for you — to reflect, breathe, and feel supported</p>
+
+  <div class="consent-fld">
+    <label class="consent-lbl" for="loginName">Your Name</label>
+    <input type="text" id="loginName" class="consent-inp" placeholder="What should I call you?" maxlength="60" autocomplete="given-name">
+    <span class="field-err" id="nameErr" aria-live="polite"></span>
+  </div>
+  <div class="consent-fld">
+    <label class="consent-lbl" for="loginMood">What brings you here today? <span class="optional-lbl">(optional)</span></label>
+    <input type="text" id="loginMood" class="consent-inp" placeholder="I'm feeling… / I'd like to…" maxlength="200">
+  </div>
+  <div class="consent-fld">
+    <label class="consent-lbl" for="loginRole">Your Role <span class="optional-lbl">(optional)</span></label>
+    <input type="text" id="loginRole" class="consent-inp" placeholder="e.g., Student, Engineer, Parent…" maxlength="80">
+  </div>
+
+  <div class="consent-cards">
+    <div class="consent-card">
+      <div class="consent-card-icon" aria-hidden="true">🔐</div>
+      <div>
+        <div class="consent-card-title">Your privacy matters</div>
+        <div class="consent-card-sub">Your profile data stays on this device. When you use AI Chat, your messages and a brief context summary are sent to Anthropic's API to generate responses. No data is stored on any server by Sanctuary.</div>
+      </div>
+    </div>
+    <div class="consent-card">
+      <div class="consent-card-icon" aria-hidden="true">💚</div>
+      <div>
+        <div class="consent-card-title">A safe space, always</div>
+        <div class="consent-card-sub">Sanctuary is here to listen without judgement. Take things at your own pace.</div>
+      </div>
+    </div>
+    <div class="consent-card">
+      <div class="consent-card-icon" aria-hidden="true">🤝</div>
+      <div>
+        <div class="consent-card-title">Support, not a substitute</div>
+        <div class="consent-card-sub">Sanctuary complements — but does not replace — professional care. Please reach out to a therapist or crisis line when you need real help.</div>
+      </div>
+    </div>
+  </div>
+
+  <label class="consent-check">
+    <input type="checkbox" id="con1">
+    <span class="consent-check-text">I understand Sanctuary is for emotional support only — not medical or clinical advice.</span>
+  </label>
+  <label class="consent-check">
+    <input type="checkbox" id="con2">
+    <span class="consent-check-text">I understand that when I use AI Chat, my messages are sent to Anthropic's API to generate responses.</span>
+  </label>
+
+  <button class="begin-btn" id="beginBtn" onclick="App.openApp()">Enter your Sanctuary 🌿</button>
+</div>
+
+<!-- APP SHELL -->
+<div id="appEl" class="app hide" role="application" aria-label="Sanctuary App">
+
+  <!-- SIDEBAR -->
+  <nav class="sb" aria-label="Navigation">
+    <div class="sb-head">
+      <div class="sb-logo">🌿 Sanctuary</div>
+      <div class="sb-tg">Your wellbeing space</div>
+    </div>
+    <div class="sb-usr">
+      <div class="av" id="avEl" aria-hidden="true">🙋</div>
+      <div style="flex:1;min-width:0;">
+        <div class="sb-un" id="sbUN">You</div>
+        <div class="sb-ur" id="sbUR">Welcome back ✨</div>
+      </div>
+    </div>
+
+    <div class="nav" id="nav" role="tablist">
+      <div class="ni on" onclick="App.selectTab('Chat')" data-tab="Chat" role="tab" aria-selected="true" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' ')App.selectTab('Chat')">
+        <span class="ni-icon" aria-hidden="true">💬</span>
+        <span class="ni-lbl">Chat</span>
+      </div>
+      <div class="ni" onclick="App.selectTab('Breathe')" data-tab="Breathe" role="tab" aria-selected="false" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' ')App.selectTab('Breathe')">
+        <span class="ni-icon" aria-hidden="true">🌬️</span>
+        <span class="ni-lbl">Breathe</span>
+      </div>
+      <div class="ni" onclick="App.selectTab('Health')" data-tab="Health" role="tab" aria-selected="false" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' ')App.selectTab('Health')">
+        <span class="ni-icon" aria-hidden="true">💚</span>
+        <span class="ni-lbl">Health</span>
+      </div>
+      <div class="ni" onclick="App.selectTab('People')" data-tab="People" role="tab" aria-selected="false" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' ')App.selectTab('People')">
+        <span class="ni-icon" aria-hidden="true">👥</span>
+        <span class="ni-lbl">People</span>
+      </div>
+      <div class="ni" onclick="App.selectTab('Reminders')" data-tab="Reminders" role="tab" aria-selected="false" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' ')App.selectTab('Reminders')">
+        <span class="ni-icon" aria-hidden="true">⏰</span>
+        <span class="ni-lbl">Reminders</span>
+      </div>
+      <div class="ni" onclick="App.selectTab('Settings')" data-tab="Settings" role="tab" aria-selected="false" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' ')App.selectTab('Settings')">
+        <span class="ni-icon" aria-hidden="true">⚙️</span>
+        <span class="ni-lbl">Settings</span>
+      </div>
+    </div>
+
+    <div class="sb-bottom">
+      <div class="mood-label">How are you right now?</div>
+      <div class="mood-row" role="group" aria-label="Quick mood log">
+        <button class="mood-btn" title="Great" aria-label="Feeling great" onclick="App.quickMood('Great','😄')">😄</button>
+        <button class="mood-btn" title="Okay" aria-label="Feeling okay" onclick="App.quickMood('Okay','🙂')">🙂</button>
+        <button class="mood-btn" title="Meh" aria-label="Feeling meh" onclick="App.quickMood('Meh','😐')">😐</button>
+        <button class="mood-btn" title="Low" aria-label="Feeling low" onclick="App.quickMood('Low','😔')">😔</button>
+        <button class="mood-btn" title="Struggling" aria-label="Feeling struggling" onclick="App.quickMood('Struggling','😢')">😢</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- MAIN -->
+  <div class="main" role="main">
+    <div class="topbar" id="topbar">
+      <div>
+        <div class="topbar-title" id="topbarTitle">Chat</div>
+        <div class="topbar-sub" id="topbarSub">A gentle space to share and be heard</div>
+      </div>
+    </div>
+
+    <!-- CHAT VIEW -->
+    <div id="Chat" class="view" role="tabpanel" aria-label="Chat">
+      <div class="chat-v">
+        <div id="msgs" class="msgs" aria-live="polite" aria-label="Conversation"></div>
+        <div id="stopBtn" class="stop-btn" onclick="Voice.stopSpk()" role="button" tabindex="0" aria-label="Stop speaking">■ Stop speaking</div>
+
+        <!-- CRISIS BANNER (hidden by default) -->
+        <div id="crisisBanner" class="crisis-banner hide" role="alert" aria-live="assertive">
+          <div class="crisis-banner-t">🆘 It sounds like you might need real support right now</div>
+          <div class="crisis-banner-s">
+            You don't have to face this alone. Please reach out to a real person:
+            <span class="crisis-banner-num" id="crisisNumbers">📞 988 (US) · Text HOME to 741741</span>
+            <a href="https://findahelpline.com" target="_blank" rel="noopener" class="crisis-link">Find help worldwide →</a>
+          </div>
+          <button class="crisis-dismiss" onclick="ChatModule.dismissCrisis()" aria-label="Dismiss crisis banner">
+            I'm okay, just venting
+          </button>
+        </div>
+
+        <div class="cw">
+          <div class="cb" id="composerBox">
+            <textarea id="ci" class="cta" placeholder="Share what's on your mind…" spellcheck="true" maxlength="2000" aria-label="Message input" rows="1"></textarea>
+            <div class="char-count" id="charCount"></div>
+            <div class="cbar">
+              <button id="mic" class="ico" onclick="Voice.toggle()" title="Voice input" aria-label="Toggle voice input">
+                <svg id="micI" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="9" y="2" width="6" height="11" rx="3"/>
+                  <path d="M5 10a7 7 0 0 0 14 0"/>
+                  <line x1="12" y1="17" x2="12" y2="21"/>
+                  <line x1="8" y1="21" x2="16" y2="21"/>
+                </svg>
+              </button>
+              <div class="sp2"></div>
+              <div id="vs" class="vs" aria-live="polite"></div>
+              <button id="snd" class="snd" onclick="ChatModule.send()" disabled title="Send message" aria-label="Send message">
+                <svg viewBox="0 0 24 24" fill="white"><path d="M16 16L2 3m0 0l15.5 6.5M2 3l6.5 15.5"/></svg>
+              </button>
+            </div>
+          </div>
+          <div class="composer-hint">Messages are sent to Anthropic's API · <a href="#" onclick="App.selectTab('Settings');return false;" style="color:var(--green)">Privacy settings</a></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- BREATHE VIEW -->
+    <div id="Breathe" class="view" role="tabpanel" aria-label="Breathe">
+      <div id="breatheC"></div>
+    </div>
+
+    <!-- HEALTH VIEW -->
+    <div id="Health" class="view" role="tabpanel" aria-label="Health">
+      <div id="healthC"></div>
+    </div>
+
+    <!-- PEOPLE VIEW -->
+    <div id="People" class="view" role="tabpanel" aria-label="People">
+      <div id="peopleC"></div>
+    </div>
+
+    <!-- REMINDERS VIEW -->
+    <div id="Reminders" class="view" role="tabpanel" aria-label="Reminders">
+      <div id="remC"></div>
+    </div>
+
+    <!-- SETTINGS VIEW -->
+    <div id="Settings" class="view" role="tabpanel" aria-label="Settings">
+      <div id="setC"></div>
+    </div>
+  </div>
+</div>
+
+<!-- EDIT PROFILE MODAL -->
+<div id="em" class="md hide" role="dialog" aria-modal="true" aria-label="Edit Profile">
+  <div class="em-c">
+    <div class="em-h">Edit Your Profile</div>
+    <div class="md-f">
+      <div class="efld"><label class="elab" for="en">Name</label><input type="text" id="en" class="eif" placeholder="Your name" maxlength="60"></div>
+      <div class="efld"><label class="elab" for="et">Title / Role</label><input type="text" id="et" class="eif" placeholder="e.g., Software Engineer" maxlength="80"></div>
+      <div class="efld"><label class="elab" for="es">Work Stress Level</label>
+        <select id="es" class="eif">
+          <option value="">— select —</option>
+          <option value="Low">Low</option>
+          <option value="Moderate">Moderate</option>
+          <option value="High">High</option>
+          <option value="Very high">Very high</option>
+        </select>
+      </div>
+      <div class="efld"><label class="elab" for="esy">Health Symptoms <span class="optional-lbl">(comma-separated)</span></label><input type="text" id="esy" class="eif" placeholder="e.g., headache, fatigue" maxlength="200"></div>
+      <div class="efld"><label class="elab" for="eft">Free Time Activities</label><input type="text" id="eft" class="eif" placeholder="e.g., reading, walks" maxlength="200"></div>
+      <div class="efld"><label class="elab" for="efe">Feelings <span class="optional-lbl">(comma-separated)</span></label><input type="text" id="efe" class="eif" placeholder="e.g., anxious, tired" maxlength="200"></div>
+      <div class="efld"><label class="elab" for="etr">Stress Triggers</label><input type="text" id="etr" class="eif" placeholder="e.g., deadlines, crowds" maxlength="200"></div>
+      <div class="efld"><label class="elab" for="esr">What helps you feel better?</label><input type="text" id="esr" class="eif" placeholder="e.g., music, walks, journaling" maxlength="200"></div>
+      <div class="efld"><label class="elab" for="esl">Sleep Pattern</label><input type="text" id="esl" class="eif" placeholder="e.g., 7–8 hours, irregular" maxlength="100"></div>
+    </div>
+    <div class="ema">
+      <button class="sbtn" onclick="ProfileModule.saveEdit()">Save changes</button>
+      <button class="ccl" onclick="UI.closeModal('em')">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- PERSON MODAL -->
+<div id="personModal" class="md hide" role="dialog" aria-modal="true" aria-label="Add Person">
+  <div class="md-c">
+    <div class="md-t" id="personModalTitle">Add a Person</div>
+    <div class="md-f">
+      <div class="efld"><label class="elab" for="pmName">Name</label><input type="text" id="pmName" class="md-in" placeholder="Their name" maxlength="60"></div>
+      <div class="efld"><label class="elab" for="pmRel">Relationship</label><input type="text" id="pmRel" class="md-in" placeholder="e.g., Friend, Partner, Parent" maxlength="60"></div>
+      <div class="efld"><label class="elab" for="pmNote">Note <span class="optional-lbl">(optional)</span></label><input type="text" id="pmNote" class="md-in" placeholder="A thought about them…" maxlength="200"></div>
+    </div>
+    <div class="md-ac">
+      <button class="sbtn" onclick="PeopleModule.savePerson()">Save</button>
+      <button class="ccl" onclick="UI.closeModal('personModal')">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- REMINDER MODAL -->
+<div id="remModal" class="md hide" role="dialog" aria-modal="true" aria-label="Add Reminder">
+  <div class="md-c">
+    <div class="md-t">Add a Reminder</div>
+    <div class="md-f">
+      <div class="efld"><label class="elab" for="rmText">Reminder</label><input type="text" id="rmText" class="md-in" placeholder="e.g., Drink water, Take a break" maxlength="200"></div>
+      <div class="efld"><label class="elab" for="rmDate">When? <span class="optional-lbl">(optional)</span></label><input type="text" id="rmDate" class="md-in" placeholder="e.g., Every morning, Tonight at 9pm" maxlength="100"></div>
+    </div>
+    <div class="md-ac">
+      <button class="sbtn" onclick="RemindersModule.saveReminder()">Save</button>
+      <button class="ccl" onclick="UI.closeModal('remModal')">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div id="toastEl" role="status" aria-live="polite"></div>
+
+<script>/**
+ * SANCTUARY — Production App (v3.0)
+ * ─────────────────────────────────
+ * Modular architecture:
+ *   State        — single source of truth
+ *   Storage      — encrypted localStorage wrapper
+ *   Sanitizer    — XSS prevention
+ *   CrisisDetector — mental health safety
+ *   APIService   — Anthropic API with retry + proxy support
+ *   Voice        — speech recognition / synthesis
+ *   UI           — shared DOM helpers
+ *   ChatModule   — chat tab logic
+ *   BreatheModule
+ *   HealthModule
+ *   PeopleModule
+ *   RemindersModule
+ *   SettingsModule
+ *   ProfileModule
+ *   App          — bootstrap & tab routing
+ */
+
+'use strict';
+
+/* ═══════════════════════════════════════════════
+   STATE — single source of truth
+   ═══════════════════════════════════════════════ */
+const State = (() => {
+  const DEFAULT_PROFILE = {
+    nick: 'You',
+    title: '',
+    work: { stress: '' },
+    health: { symptoms: [], sleep: '' },
+    mind: { feelings: [], triggers: [], stressRelief: [] },
+    identity: { freetime: [] },
+    people: [],
+    reminders: [],
+  };
+
+  let profile = structuredClone(DEFAULT_PROFILE);
+  let apiKey = '';
+  let currentTab = 'Chat';
+  // Chat history kept in memory (not just DOM)
+  let chatHistory = []; // {role, content, timestamp}
+
+  return {
+    get profile() { return profile; },
+    get apiKey() { return apiKey; },
+    get currentTab() { return currentTab; },
+    get chatHistory() { return chatHistory; },
+    setProfile(p) { profile = p; },
+    setApiKey(k) { apiKey = k; },
+    setCurrentTab(t) { currentTab = t; },
+    addMessage(role, content) {
+      chatHistory.push({ role, content, timestamp: Date.now() });
+      // Keep last 40 messages in memory to manage context window
+      if (chatHistory.length > 40) chatHistory = chatHistory.slice(-40);
+    },
+    clearHistory() { chatHistory = []; },
+    resetProfile() { profile = structuredClone(DEFAULT_PROFILE); },
+  };
+})();
+
+
+/* ═══════════════════════════════════════════════
+   STORAGE — localStorage with basic obfuscation
+   NOTE: For production SaaS, replace with server-side
+   encrypted storage via authenticated API calls.
+   ═══════════════════════════════════════════════ */
+const Storage = (() => {
+  const KEYS = {
+    PROFILE: 'snct_profile_v3',
+    CONSENT: 'snct_consent_v3',
+    CHAT: 'snct_chat_v3',
+  };
+
+  // Simple base64 encode/decode — NOT true encryption.
+  // For real encryption use Web Crypto API with a user-derived key.
+  function encode(obj) {
+    try { return btoa(unescape(encodeURIComponent(JSON.stringify(obj)))); }
+    catch { return null; }
+  }
+  function decode(str) {
+    try { return JSON.parse(decodeURIComponent(escape(atob(str)))); }
+    catch { return null; }
+  }
+
+  return {
+    saveProfile(profile) {
+      try { localStorage.setItem(KEYS.PROFILE, encode(profile)); } catch(e) { console.warn('Storage write failed:', e); }
+    },
+    loadProfile() {
+      try {
+        const raw = localStorage.getItem(KEYS.PROFILE);
+        return raw ? decode(raw) : null;
+      } catch { return null; }
+    },
+    saveConsent(data) {
+      try { localStorage.setItem(KEYS.CONSENT, encode(data)); } catch {}
+    },
+    loadConsent() {
+      try { const r = localStorage.getItem(KEYS.CONSENT); return r ? decode(r) : null; } catch { return null; }
+    },
+    saveChat(history) {
+      try {
+        // Only persist last 20 messages
+        const toSave = history.slice(-20);
+        localStorage.setItem(KEYS.CHAT, encode(toSave));
+      } catch {}
+    },
+    loadChat() {
+      try { const r = localStorage.getItem(KEYS.CHAT); return r ? decode(r) : []; } catch { return []; }
+    },
+    clearAll() {
+      [KEYS.PROFILE, KEYS.CONSENT, KEYS.CHAT].forEach(k => {
+        try { localStorage.removeItem(k); } catch {}
+      });
+      // Also clear legacy keys from v2
+      ['profile','key','chat','con1'].forEach(k => { try { localStorage.removeItem(k); } catch {} });
+    },
+    exportData(profile) {
+      const exp = {
+        exportedAt: new Date().toISOString(),
+        version: '3.0',
+        name: profile.nick,
+        title: profile.title,
+        symptoms: profile.health.symptoms,
+        feelings: profile.mind.feelings,
+        people: profile.people.map(p => ({ name: p.name, rel: p.rel })),
+        reminders: profile.reminders,
+        // Note: API key is never exported for security
+      };
+      const blob = new Blob([JSON.stringify(exp, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `sanctuary_export_${Date.now()}.json`;
+      a.click();
+      URL.revokeObjectURL(url);
+    },
+  };
+})();
+
+
+/* ═══════════════════════════════════════════════
+   SANITIZER — XSS prevention
+   All user content must pass through here before
+   being inserted into the DOM.
+   ═══════════════════════════════════════════════ */
+const Sanitizer = (() => {
+  // Safe text insertion — never use innerHTML for user content
+  function text(str) {
+    if (typeof str !== 'string') return '';
+    return str
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#x27;');
+  }
+
+  // Allow only newlines to become <br> — for AI responses only
+  function aiText(str) {
+    if (typeof str !== 'string') return '';
+    return text(str).replace(/\n/g, '<br>');
+  }
+
+  // Validate and truncate string fields
+  function field(str, maxLen = 200) {
+    if (typeof str !== 'string') return '';
+    return str.trim().slice(0, maxLen);
+  }
+
+  // Parse comma-separated list safely
+  function csvToArray(str, maxLen = 200) {
+    return str.split(',').map(s => field(s, 50)).filter(Boolean).slice(0, maxLen);
+  }
+
+  return { text, aiText, field, csvToArray };
+})();
+
+
+/* ═══════════════════════════════════════════════
+   CRISIS DETECTOR — mental health safety layer
+   ═══════════════════════════════════════════════ */
+const CrisisDetector = (() => {
+  // Tiered keyword system
+  const TIER1_CRISIS = [
+    /\b(kill\s*(my)?self|suicide|suicidal|want\s*to\s*die|end\s*my\s*life|end\s*it\s*all)\b/i,
+    /\b(self.?harm|cutting\s*myself|hurt\s*myself)\b/i,
+    /\b(no\s*reason\s*to\s*live|can't\s*go\s*on|don't\s*want\s*to\s*be\s*here)\b/i,
+    /\b(overdose|pills\s*to\s*die|jump\s*off)\b/i,
+  ];
+  const TIER2_DISTRESS = [
+    /\b(hopeless|helpless|worthless|nobody\s*cares|all\s*alone|trapped)\b/i,
+    /\b(can't\s*take\s*it|breaking\s*down|falling\s*apart)\b/i,
+    /\b(crisis|emergency|desperate|rock\s*bottom)\b/i,
+  ];
+
+  // Region-based crisis lines
+  const CRISIS_LINES = {
+    IN: '📞 iCall: 9152987821 · Vandrevala Foundation: 1860-2662-345',
+    US: '📞 988 Suicide & Crisis Lifeline — call or text 988',
+    UK: '📞 Samaritans: 116 123 (free, 24/7)',
+    CA: '📞 Crisis Services Canada: 1-833-456-4566',
+    AU: '📞 Lifeline Australia: 13 11 14',
+    DEFAULT: '📞 International help: findahelpline.com',
+  };
+
+  function detect(text) {
+    if (!text) return { level: 0, line: null };
+    // Check tier 1 (immediate crisis)
+    if (TIER1_CRISIS.some(r => r.test(text))) {
+      return { level: 2, line: getLine() };
+    }
+    // Check tier 2 (elevated distress)
+    if (TIER2_DISTRESS.some(r => r.test(text))) {
+      return { level: 1, line: getLine() };
+    }
+    return { level: 0, line: null };
+  }
+
+  function getLine() {
+    // Detect region from browser locale
+    const locale = navigator.language || '';
+    if (locale.includes('IN') || locale === 'hi') return CRISIS_LINES.IN;
+    if (locale.startsWith('en-GB')) return CRISIS_LINES.UK;
+    if (locale.startsWith('en-CA')) return CRISIS_LINES.CA;
+    if (locale.startsWith('en-AU')) return CRISIS_LINES.AU;
+    if (locale.startsWith('en-US') || locale === 'en') return CRISIS_LINES.US;
+    return CRISIS_LINES.DEFAULT;
+  }
+
+  // Override prompt for crisis situations — AI must prioritize safety
+  function buildCrisisSystemPrompt(level) {
+    if (level === 2) {
+      return `The user has expressed serious distress or crisis signals. Your ONLY priority right now is their immediate safety.
+Do NOT continue the normal conversation. Instead:
+1. Acknowledge their pain with deep empathy (1-2 sentences)
+2. Clearly and directly encourage them to contact a crisis line RIGHT NOW
+3. Keep it brief, warm, and human — do not list resources robotically
+4. Do NOT give advice, ask follow-up questions, or change the subject
+Remember: You are not a substitute for professional crisis support.`;
+    }
+    return null; // Level 1 uses normal system prompt but with crisis context injected
+  }
+
+  return { detect, buildCrisisSystemPrompt, getLine };
+})();
+
+
+/* ═══════════════════════════════════════════════
+   API SERVICE — Anthropic API with retry + proxy
+   ═══════════════════════════════════════════════ */
+const APIService = (() => {
+  // SECURITY NOTE: For production, NEVER expose the API key in frontend code.
+  // This client-side key approach is provided only for local/personal use.
+  // For a real product, implement a backend proxy endpoint:
+  //   POST /api/chat  →  your server forwards to Anthropic with server-side key
+  //   See: proxy-server.js in this package for a Node.js implementation.
+  const PROXY_URL = null; // Set to your proxy URL, e.g. '/api/chat'
+  const ANTHROPIC_URL = 'https://api.anthropic.com/v1/messages';
+  const MODEL = 'claude-sonnet-4-20250514';
+  const MAX_TOKENS = 500;
+  const MAX_RETRIES = 2;
+  const RETRY_DELAY = 1200; // ms
+
+  function buildSystemPrompt(profile, crisisLevel) {
+    const crisisOverride = CrisisDetector.buildCrisisSystemPrompt(crisisLevel);
+    if (crisisOverride) return crisisOverride;
+
+    const feelings = profile.mind.feelings.length
+      ? profile.mind.feelings.join(', ')
+      : 'not shared yet';
+    const crisisContext = crisisLevel === 1
+      ? `\n\nIMPORTANT: The user seems to be in elevated distress. Gently acknowledge their pain, show deep empathy, and softly mention that crisis support is available if they need it (${CrisisDetector.getLine()}).`
+      : '';
+
+    return `You are Sanctuary, a warm, empathetic wellbeing companion. Your role is to provide emotional support — not medical diagnosis or clinical advice.
+
+Guidelines:
+- Be gentle, non-judgmental, and supportive. Respond with warmth and care.
+- Keep responses concise (2–4 sentences) unless the user clearly needs more.
+- Ask one thoughtful follow-up question per response to understand better.
+- Never diagnose, prescribe, or give medical advice.
+- If the user mentions crisis signals, gently mention professional support is available.
+- Be honest that you are an AI companion, not a therapist, if directly asked.
+
+User context (use naturally, don't reference mechanically):
+- Name: ${Sanitizer.field(profile.nick, 60)}
+- Role: ${Sanitizer.field(profile.title, 80) || 'not shared'}
+- Current feelings: ${feelings}
+- Stress level: ${Sanitizer.field(profile.work.stress, 40) || 'not shared'}${crisisContext}`;
+  }
+
+  function buildMessages(history, currentPrompt) {
+    // Take last 10 messages for context (token management)
+    const recentHistory = history.slice(-10);
+    const messages = recentHistory
+      .filter(m => m.content && m.content.trim())
+      .map(m => ({ role: m.role, content: m.content }));
+    messages.push({ role: 'user', content: currentPrompt });
+    return messages;
+  }
+
+  async function fetchWithRetry(url, options, retries = 0) {
+    try {
+      const response = await fetch(url, options);
+      if (!response.ok) {
+        const errorBody = await response.json().catch(() => ({}));
+        const errMsg = errorBody?.error?.message || `HTTP ${response.status}`;
+
+        // Rate limit → wait and retry
+        if (response.status === 429 && retries < MAX_RETRIES) {
+          await new Promise(r => setTimeout(r, RETRY_DELAY * (retries + 1)));
+          return fetchWithRetry(url, options, retries + 1);
+        }
+        // Auth error → no retry
+        if (response.status === 401) throw new Error('Invalid API key. Please check your key in Settings.');
+        throw new Error(errMsg);
+      }
+      return response.json();
+    } catch (err) {
+      if (retries < MAX_RETRIES && !(err.message.includes('Invalid API key'))) {
+        await new Promise(r => setTimeout(r, RETRY_DELAY));
+        return fetchWithRetry(url, options, retries + 1);
+      }
+      throw err;
+    }
+  }
+
+  async function sendMessage(prompt, history, profile, crisisLevel = 0) {
+    const key = State.apiKey;
+    if (!key) throw new Error('NO_KEY');
+
+    const systemPrompt = buildSystemPrompt(profile, crisisLevel);
+    const messages = buildMessages(history, prompt);
+
+    const body = JSON.stringify({
+      model: MODEL,
+      max_tokens: MAX_TOKENS,
+      system: systemPrompt,
+      messages,
+    });
+
+    let url, headers;
+    if (PROXY_URL) {
+      // Use backend proxy (recommended for production)
+      url = PROXY_URL;
+      headers = { 'Content-Type': 'application/json' };
+    } else {
+      // Direct API (client-side key — only for local/personal use)
+      url = ANTHROPIC_URL;
+      headers = {
+        'Content-Type': 'application/json',
+        'x-api-key': key,
+        'anthropic-version': '2023-06-01',
+        'anthropic-dangerous-direct-browser-access': 'true',
+      };
+    }
+
+    const data = await fetchWithRetry(url, { method: 'POST', headers, body });
+
+    if (data.content && data.content[0] && data.content[0].text) {
+      return data.content[0].text;
+    }
+    throw new Error('Unexpected API response format');
+  }
+
+  return { sendMessage };
+})();
+
+
+/* ═══════════════════════════════════════════════
+   VOICE — speech recognition & synthesis
+   ═══════════════════════════════════════════════ */
+const Voice = (() => {
+  let rec = null;
+  let isListening = false;
+  let isSpeaking = false;
+  const ss = window.speechSynthesis;
+
+  function init() {
+    const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (!SR) return; // Gracefully degrade — voice just won't work
+
+    rec = new SR();
+    rec.continuous = false;
+    rec.interimResults = true;
+    rec.lang = navigator.language || 'en-US';
+
+    rec.onstart = () => { isListening = true; updateMicUI(); setStatus('🎤 Listening…'); };
+    rec.onresult = (e) => {
+      let interim = '', final = '';
+      for (let i = e.resultIndex; i < e.results.length; i++) {
+        if (e.results[i].isFinal) final += e.results[i][0].transcript;
+        else interim += e.results[i][0].transcript;
+      }
+      const ci = document.getElementById('ci');
+      if (ci) {
+        ci.value = Sanitizer.field(final || interim, 2000);
+        ci.style.height = 'auto';
+        ci.style.height = Math.min(ci.scrollHeight, 120) + 'px';
+        document.getElementById('snd').disabled = !ci.value.trim();
+        updateCharCount(ci.value);
+      }
+      if (final) setTimeout(() => { stopListening(); ChatModule.send(); }, 300);
+    };
+    rec.onerror = (e) => {
+      stopListening();
+      const msg = e.error === 'not-allowed' ? '⚠️ Mic denied' : '⚠️ Voice unavailable';
+      setStatus(msg);
+      setTimeout(() => setStatus(''), 3000);
+    };
+    rec.onend = () => { isListening = false; updateMicUI(); };
+  }
+
+  function toggle() {
+    if (!rec) { UI.toast('Voice input is not supported in this browser'); return; }
+    if (isSpeaking) { stopSpk(); return; }
+    if (isListening) stopListening(); else startListening();
+  }
+
+  function startListening() {
+    stopSpk();
+    try { rec.start(); } catch {}
+  }
+
+  function stopListening() {
+    if (rec && isListening) try { rec.stop(); } catch {}
+    isListening = false;
+    updateMicUI();
+    setStatus('');
+  }
+
+  function speak(text) {
+    if (!ss) return;
+    stopSpk();
+    const cleaned = text.replace(/[*_#`•]/g, '').replace(/\n+/g, ' ').trim();
+    if (!cleaned) return;
+    const utt = new SpeechSynthesisUtterance(cleaned);
+    utt.rate = 0.93;
+    utt.pitch = 1.05;
+    const voices = ss.getVoices();
+    const bestVoice = voices.find(v =>
+      v.lang.startsWith('en') && (v.name.includes('Google') || v.name.includes('Samantha') || v.name.includes('Karen'))
+    ) || voices.find(v => v.lang.startsWith('en'));
+    if (bestVoice) utt.voice = bestVoice;
+    utt.onstart = () => {
+      isSpeaking = true;
+      updateMicUI();
+      const sb = document.getElementById('stopBtn');
+      if (sb) sb.style.display = 'flex';
+      setStatus('🔊 Speaking…');
+    };
+    utt.onend = utt.onerror = () => {
+      isSpeaking = false;
+      updateMicUI();
+      const sb = document.getElementById('stopBtn');
+      if (sb) sb.style.display = 'none';
+      setStatus('');
+    };
+    ss.speak(utt);
+  }
+
+  function stopSpk() {
+    ss?.cancel();
+    isSpeaking = false;
+    updateMicUI();
+    const sb = document.getElementById('stopBtn');
+    if (sb) sb.style.display = 'none';
+    setStatus('');
+  }
+
+  function updateMicUI() {
+    const btn = document.getElementById('mic');
+    const icon = document.getElementById('micI');
+    if (!btn || !icon) return;
+    if (isListening) {
+      btn.classList.add('lis');
+      icon.innerHTML = '<rect x="6" y="6" width="12" height="12" rx="2" fill="currentColor" stroke="none"/>';
+    } else {
+      btn.classList.remove('lis');
+      icon.innerHTML = '<rect x="9" y="2" width="6" height="11" rx="3"/><path d="M5 10a7 7 0 0 0 14 0"/><line x1="12" y1="17" x2="12" y2="21"/><line x1="8" y1="21" x2="16" y2="21"/>';
+    }
+    // Hide mic button if not supported
+    if (!rec) btn.style.display = 'none';
+  }
+
+  function setStatus(html) {
+    const el = document.getElementById('vs');
+    if (el) el.textContent = html;
+  }
+
+  return { init, toggle, speak, stopSpk };
+})();
+
+
+/* ═══════════════════════════════════════════════
+   UI — shared DOM helpers (no innerHTML for user data)
+   ═══════════════════════════════════════════════ */
+const UI = (() => {
+  let toastTimer = null;
+
+  function toast(msg) {
+    const el = document.getElementById('toastEl');
+    if (!el) return;
+    el.textContent = Sanitizer.field(msg, 100);
+    el.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => el.classList.remove('show'), 2800);
+  }
+
+  function openModal(id) {
+    const el = document.getElementById(id);
+    if (el) {
+      el.classList.remove('hide');
+      // Focus first input
+      const first = el.querySelector('input, textarea, select');
+      if (first) setTimeout(() => first.focus(), 50);
+    }
+  }
+
+  function closeModal(id) {
+    const el = document.getElementById(id);
+    if (el) el.classList.add('hide');
+  }
+
+  // Create a text node safely
+  function setText(el, text) {
+    if (typeof el === 'string') el = document.getElementById(el);
+    if (el) el.textContent = text;
+  }
+
+  // Create DOM element with properties
+  function el(tag, props = {}, ...children) {
+    const elem = document.createElement(tag);
+    Object.entries(props).forEach(([k, v]) => {
+      if (k === 'class') elem.className = v;
+      else if (k === 'style') Object.assign(elem.style, v);
+      else if (k.startsWith('on')) elem.addEventListener(k.slice(2), v);
+      else elem.setAttribute(k, v);
+    });
+    children.forEach(child => {
+      if (typeof child === 'string') elem.appendChild(document.createTextNode(child));
+      else if (child instanceof Node) elem.appendChild(child);
+    });
+    return elem;
+  }
+
+  return { toast, openModal, closeModal, setText, el };
+})();
+
+function updateCharCount(value) {
+  const el = document.getElementById('charCount');
+  if (!el) return;
+  const len = value.length;
+  if (len > 1800) {
+    el.textContent = `${len}/2000`;
+    el.className = 'char-count warn';
+  } else if (len > 0) {
+    el.textContent = `${len}/2000`;
+    el.className = 'char-count';
+  } else {
+    el.textContent = '';
+  }
+}
+
+
+/* ═══════════════════════════════════════════════
+   CHAT MODULE
+   ═══════════════════════════════════════════════ */
+const ChatModule = (() => {
+  let lastFailedPrompt = null;
+
+  const CHECKINS = [
+    { intro: "How's your energy today?", opts: ["I'm feeling good", "A bit tired", "Quite drained", "Actually great!"] },
+    { intro: "What's weighing on you most?", opts: ["Work stress", "Relationships", "Health worries", "Nothing, just need to talk"] },
+    { intro: "Would you like to…", opts: ["Vent & be heard", "Get gentle advice", "Try a breathing exercise", "Just sit quietly"] },
+  ];
+
+  function draw() {
+    const msgs = document.getElementById('msgs');
+    if (!msgs || msgs.children.length > 0) return;
+    addMessage('ai', `Hi ${Sanitizer.field(State.profile.nick, 60)} 💚 I'm Sanctuary — a gentle space just for you. You can share anything here. What's on your mind today?`, true);
+    setTimeout(() => addCheckin(0), 800);
+  }
+
+  function addCheckin(idx) {
+    const msgs = document.getElementById('msgs');
+    if (!msgs) return;
+    const c = CHECKINS[idx % CHECKINS.length];
+
+    const card = UI.el('div', { class: 'q-card' });
+    const intro = UI.el('div', { class: 'q-card-intro' }, `💬 ${c.intro}`);
+    const opts = UI.el('div', { class: 'q-options' });
+
+    c.opts.forEach(opt => {
+      const btn = UI.el('button', {
+        class: 'q-opt',
+        onclick: () => pickOpt(opt, btn),
+      }, opt);
+      opts.appendChild(btn);
+    });
+
+    card.appendChild(intro);
+    card.appendChild(opts);
+
+    const wrap = UI.el('div', { class: 'msg' });
+    const av = UI.el('div', { class: 'mav ai' }, '🌿');
+    const bub = UI.el('div', { class: 'bub ai' });
+    bub.appendChild(card);
+    wrap.appendChild(av);
+    wrap.appendChild(bub);
+    msgs.appendChild(wrap);
+    msgs.scrollTop = msgs.scrollHeight;
+  }
+
+  function pickOpt(opt, btn) {
+    // Replace card with confirmation
+    const card = btn.closest('.q-card');
+    if (card) {
+      card.textContent = '';
+      const confirm = UI.el('div', { style: { fontSize: '12px', color: 'var(--green-d)', fontWeight: '600' } }, `✓ ${opt}`);
+      card.appendChild(confirm);
+    }
+    setTimeout(() => {
+      addMessage('user', opt);
+      callAI(opt);
+    }, 300);
+  }
+
+  // Add a message to the DOM using safe DOM APIs (no innerHTML for user content)
+  function addMessage(role, text, isSystem = false) {
+    const msgs = document.getElementById('msgs');
+    if (!msgs) return;
+
+    const wrap = UI.el('div', { class: `msg${role === 'user' ? ' u' : ''}` });
+    const avText = role === 'user'
+      ? (State.profile.nick[0] || 'Y').toUpperCase()
+      : '🌿';
+    const av = UI.el('div', { class: `mav ${role === 'user' ? 'u' : 'ai'}` }, avText);
+    const bub = UI.el('div', { class: `bub ${role === 'user' ? 'u' : 'ai'}` });
+
+    if (role === 'ai') {
+      // AI text: allow line breaks but sanitize everything else
+      bub.innerHTML = Sanitizer.aiText(text); // safe: Sanitizer.aiText escapes then adds <br>
+    } else {
+      // User text: strict text node only — never innerHTML
+      bub.textContent = text;
+    }
+
+    wrap.appendChild(av);
+    wrap.appendChild(bub);
+    msgs.appendChild(wrap);
+    msgs.scrollTop = msgs.scrollHeight;
+
+    if (!isSystem) {
+      State.addMessage(role === 'user' ? 'user' : 'assistant', text);
+      Storage.saveChat(State.chatHistory);
+    }
+  }
+
+  function addTyping() {
+    const msgs = document.getElementById('msgs');
+    const wrap = UI.el('div', { class: 'msg' });
+    const av = UI.el('div', { class: 'mav ai' }, '🌿');
+    const bub = UI.el('div', { class: 'bub ai', style: { padding: '13px 16px' } });
+    [1,2,3].forEach(() => bub.appendChild(UI.el('span', { class: 'dot' })));
+    wrap.appendChild(av);
+    wrap.appendChild(bub);
+    msgs.appendChild(wrap);
+    msgs.scrollTop = msgs.scrollHeight;
+    return wrap;
+  }
+
+  function addError(prompt) {
+    const msgs = document.getElementById('msgs');
+    const wrap = UI.el('div', { class: 'msg' });
+    const av = UI.el('div', { class: 'mav ai' }, '🌿');
+    const errDiv = UI.el('div', { class: 'msg-error' },
+      '⚠️ Couldn\'t reach the AI. '
+    );
+    const retryBtn = UI.el('button', {
+      class: 'retry-btn',
+      onclick: () => { wrap.remove(); callAI(prompt); }
+    }, 'Retry');
+    errDiv.appendChild(retryBtn);
+    wrap.appendChild(av);
+    wrap.appendChild(errDiv);
+    msgs.appendChild(wrap);
+    msgs.scrollTop = msgs.scrollHeight;
+  }
+
+  function send() {
+    const ci = document.getElementById('ci');
+    if (!ci) return;
+    const text = ci.value.trim();
+    if (!text || text.length > 2000) return;
+
+    addMessage('user', text);
+    ci.value = '';
+    ci.style.height = 'auto';
+    document.getElementById('snd').disabled = true;
+    updateCharCount('');
+
+    callAI(text);
+  }
+
+  async function callAI(prompt) {
+    if (!State.apiKey) {
+      UI.toast('Add your API key in Settings to enable AI responses');
+      return;
+    }
+
+    // Crisis detection — runs BEFORE sending to AI
+    const crisis = CrisisDetector.detect(prompt);
+    if (crisis.level >= 1) showCrisisBanner(crisis.line);
+
+    const typing = addTyping();
+    lastFailedPrompt = prompt;
+
+    try {
+      const reply = await APIService.sendMessage(
+        prompt,
+        State.chatHistory.slice(0, -1), // exclude the message we just added
+        State.profile,
+        crisis.level
+      );
+      typing.remove();
+      addMessage('ai', reply);
+      // Auto-speak response
+      setTimeout(() => Voice.speak(reply), 200);
+      // Occasional proactive check-in (not in crisis mode)
+      if (crisis.level === 0 && Math.random() < 0.25) {
+        setTimeout(() => addCheckin(Math.floor(Math.random() * CHECKINS.length)), 1600);
+      }
+      lastFailedPrompt = null;
+    } catch (err) {
+      typing.remove();
+      if (err.message === 'NO_KEY') {
+        addMessage('ai', 'Please add your API key in Settings to get AI responses. 💚');
+      } else {
+        addError(prompt);
+        console.error('API error:', err.message);
+      }
+    }
+  }
+
+  function showCrisisBanner(line) {
+    const banner = document.getElementById('crisisBanner');
+    const nums = document.getElementById('crisisNumbers');
+    if (banner && nums) {
+      nums.textContent = line;
+      banner.classList.remove('hide');
+    }
+  }
+
+  function dismissCrisis() {
+    const banner = document.getElementById('crisisBanner');
+    if (banner) banner.classList.add('hide');
+  }
+
+  function loadHistory() {
+    const saved = Storage.loadChat();
+    if (!saved || !saved.length) return;
+    const msgs = document.getElementById('msgs');
+    if (!msgs) return;
+    // Restore up to last 20 messages
+    saved.forEach(m => {
+      addMessage(m.role === 'user' ? 'user' : 'ai', m.content, true);
+      State.addMessage(m.role, m.content);
+    });
+  }
+
+  return { draw, addMessage, send, callAI, dismissCrisis, loadHistory };
+})();
+
+
+/* ═══════════════════════════════════════════════
+   BREATHE MODULE
+   ═══════════════════════════════════════════════ */
+const BreatheModule = (() => {
+  let breathTimer = null;
+
+  function draw() {
+    const c = document.getElementById('breatheC');
+    if (!c) return;
+
+    c.textContent = ''; // Clear safely
+
+    const intro = UI.el('div', { class: 'calm', style: { marginBottom: '16px' } });
+    UI.el('div', { class: 'calm-t' }, '🌬️ Breathing exercises'); // not appended yet
+    const t = UI.el('div', { class: 'calm-t' }, '🌬️ Breathing exercises');
+    const s = UI.el('div', { class: 'calm-s' }, 'Take a moment. These simple exercises can calm your nervous system within minutes.');
+    intro.appendChild(t);
+    intro.appendChild(s);
+    c.appendChild(intro);
+
+    // Breathing circle card
+    const card = UI.el('div', { class: 'breath-card', id: 'breathCard' });
+    const title = UI.el('div', { style: { fontSize: '13px', fontWeight: '700', color: 'var(--green-xl)', marginBottom: '4px' } }, '4-7-8 Breathing');
+    const sub = UI.el('div', { style: { fontSize: '12px', color: 'var(--green-d)', marginBottom: '4px' } }, 'Inhale 4s · Hold 7s · Exhale 8s');
+    const circle = UI.el('div', { class: 'breath-circle', id: 'breathCircle', 'aria-label': 'Breathing circle — tap to start' }, 'Tap to start');
+    const label = UI.el('div', { id: 'breathLabel', style: { fontSize: '12px', color: 'var(--green-d)', fontWeight: '600' } });
+    circle.addEventListener('click', start478);
+    card.appendChild(title); card.appendChild(sub);
+    card.appendChild(circle); card.appendChild(label);
+    c.appendChild(card);
+
+    // Exercise cards
+    [
+      { icon: '🫁', title: '4-7-8 Breathing', sub: 'Great for anxiety and falling asleep. Inhale, hold, then a long exhale.', fn: start478 },
+      { icon: '📦', title: 'Box Breathing', sub: 'Used by Navy SEALs. Four equal counts — inhale, hold, exhale, hold.', fn: boxBreath },
+      { icon: '🌱', title: '5-4-3-2-1 Grounding', sub: 'Name 5 things you see, 4 you can touch, 3 you hear, 2 you smell, 1 you taste.', fn: grounding },
+    ].forEach(ex => {
+      const p = UI.el('div', { class: 'prompt-card', role: 'button', tabindex: '0' });
+      p.addEventListener('click', ex.fn);
+      p.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') ex.fn(); });
+      p.appendChild(UI.el('div', { class: 'prompt-icon' }, ex.icon));
+      p.appendChild(UI.el('div', { class: 'prompt-title' }, ex.title));
+      p.appendChild(UI.el('div', { class: 'prompt-sub' }, ex.sub));
+      c.appendChild(p);
+    });
+  }
+
+  function runSteps(steps, labelPrefix) {
+    if (breathTimer) clearTimeout(breathTimer);
+    let idx = 0;
+    function step() {
+      const s = steps[idx % steps.length];
+      const circle = document.getElementById('breathCircle');
+      const label = document.getElementById('breathLabel');
+      if (!circle) return;
+      circle.textContent = s.text;
+      if (label) label.textContent = `${labelPrefix} — ${s.text.replace('…', '')}`;
+      if (s.expand) circle.classList.add('expand');
+      else circle.classList.remove('expand');
+      idx++;
+      breathTimer = setTimeout(step, s.dur);
+    }
+    step();
+  }
+
+  function start478() {
+    runSteps([
+      { text: 'Inhale…', dur: 4000, expand: true },
+      { text: 'Hold…', dur: 7000, expand: true },
+      { text: 'Exhale…', dur: 8000, expand: false },
+    ], '4-7-8');
+    UI.toast('Follow the circle — breathe gently 🌿');
+  }
+
+  function boxBreath() {
+    App.selectTab('Breathe');
+    runSteps([
+      { text: 'Inhale…', dur: 4000, expand: true },
+      { text: 'Hold…', dur: 4000, expand: true },
+      { text: 'Exhale…', dur: 4000, expand: false },
+      { text: 'Hold…', dur: 4000, expand: false },
+    ], 'Box breathing');
+    UI.toast('Box breathing started 📦');
+  }
+
+  function grounding() {
+    App.selectTab('Chat');
+    const steps = [
+      '👁️ Name 5 things you can SEE right now',
+      '🤲 Name 4 things you can TOUCH',
+      '👂 Name 3 things you can HEAR',
+      '👃 Name 2 things you can SMELL',
+      '👅 Name 1 thing you can TASTE',
+    ];
+    setTimeout(() => {
+      const text = `Let's do a grounding exercise together 🌱\n\nTake a slow breath first…\n\n${steps.join('\n\n')}\n\nTake your time with each one. How do you feel now?`;
+      ChatModule.addMessage('ai', text, true);
+    }, 300);
+  }
+
+  return { draw };
+})();
+
+
+/* ═══════════════════════════════════════════════
+   HEALTH MODULE
+   ═══════════════════════════════════════════════ */
+const HealthModule = (() => {
+  const FEELING_OPTS = ['Energized', 'Calm', 'Tired', 'Anxious', 'Stressed', 'Content', 'Overwhelmed', 'Hopeful'];
+
+  function draw() {
+    const c = document.getElementById('healthC');
+    if (!c) return;
+    c.textContent = '';
+
+    const p = State.profile;
+
+    // Current feelings
+    const feelCard = UI.el('div', { class: 'calm' });
+    feelCard.appendChild(UI.el('div', { class: 'calm-t' }, 'Your current feelings'));
+    feelCard.appendChild(UI.el('div', { class: 'calm-s' }, p.mind.feelings.length ? p.mind.feelings.join(', ') : 'Not logged yet'));
+    c.appendChild(feelCard);
+
+    // Sleep
+    const sleepCard = UI.el('div', { class: 'dis' });
+    sleepCard.appendChild(UI.el('div', { class: 'dis-t' }, 'Sleep pattern'));
+    sleepCard.appendChild(UI.el('div', { class: 'dis-s' }, p.health.sleep || 'Not set — tap Edit Profile to add'));
+    c.appendChild(sleepCard);
+
+    // Symptoms
+    const sympCard = UI.el('div', { class: 'dis' });
+    sympCard.appendChild(UI.el('div', { class: 'dis-t' }, 'Health symptoms noted'));
+    sympCard.appendChild(UI.el('div', { class: 'dis-s' }, p.health.symptoms.length ? p.health.symptoms.join(', ') : 'None logged'));
+    c.appendChild(sympCard);
+
+    // Mood chips
+    const moodSection = UI.el('div', { style: { marginBottom: '14px' } });
+    moodSection.appendChild(UI.el('div', { class: 'section-title' }, 'Quick mood log'));
+    const chips = UI.el('div', { class: 'chips' });
+    FEELING_OPTS.forEach(f => {
+      const chip = UI.el('div', {
+        class: `chip${p.mind.feelings.includes(f) ? ' on' : ''}`,
+        role: 'button',
+        tabindex: '0',
+        'aria-pressed': p.mind.feelings.includes(f) ? 'true' : 'false',
+      }, f);
+      chip.addEventListener('click', () => toggleFeeling(f));
+      chip.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') toggleFeeling(f); });
+      chips.appendChild(chip);
+    });
+    moodSection.appendChild(chips);
+    c.appendChild(moodSection);
+
+    // Wellbeing prompts
+    c.appendChild(UI.el('div', { class: 'section-title' }, 'Wellbeing prompts'));
+    [
+      { icon: '🌙', title: 'Sleep better tonight', sub: 'Get gentle, personalised tips for a restful night.', prompt: 'How can I sleep better tonight?' },
+      { icon: '🍃', title: 'Reduce stress', sub: 'Simple things you can do right now to feel calmer.', prompt: 'I want to reduce my stress levels. What can I do?' },
+      { icon: '💭', title: 'Understand my anxiety', sub: 'A gentle exploration of what might be driving anxious feelings.', prompt: 'Help me understand my anxiety better.' },
+    ].forEach(item => {
+      const card = UI.el('div', { class: 'prompt-card', role: 'button', tabindex: '0' });
+      card.addEventListener('click', () => chatPrompt(item.prompt));
+      card.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') chatPrompt(item.prompt); });
+      card.appendChild(UI.el('div', { class: 'prompt-icon' }, item.icon));
+      card.appendChild(UI.el('div', { class: 'prompt-title' }, item.title));
+      card.appendChild(UI.el('div', { class: 'prompt-sub' }, item.sub));
+      c.appendChild(card);
+    });
+  }
+
+  function toggleFeeling(f) {
+    const feelings = State.profile.mind.feelings;
+    const idx = feelings.indexOf(f);
+    if (idx >= 0) feelings.splice(idx, 1);
+    else feelings.push(f);
+    Storage.saveProfile(State.profile);
+    draw(); // Re-render
+    UI.toast(`Mood logged: ${f}`);
+  }
+
+  function chatPrompt(text) {
+    App.selectTab('Chat');
+    setTimeout(() => {
+      ChatModule.addMessage('user', text);
+      ChatModule.callAI(text);
+    }, 300);
+  }
+
+  return { draw };
+})();
+
+
+/* ═══════════════════════════════════════════════
+   PEOPLE MODULE
+   ═══════════════════════════════════════════════ */
+const PeopleModule = (() => {
+  let editingIdx = null;
+
+  function draw() {
+    const c = document.getElementById('peopleC');
+    if (!c) return;
+    c.textContent = '';
+
+    const people = State.profile.people;
+    if (!people.length) {
+      const empty = UI.el('div', { class: 'dis' });
+      empty.appendChild(UI.el('div', { class: 'dis-t' }, 'No people yet'));
+      empty.appendChild(UI.el('div', { class: 'dis-s' }, 'Add the important people in your life — friends, family, colleagues. Sanctuary can help you reflect on these relationships.'));
+      c.appendChild(empty);
+      return;
+    }
+
+    people.forEach((person, i) => {
+      const card = UI.el('div', { class: 'pcard' });
+      const info = UI.el('div', { class: 'pcard-info' });
+      info.appendChild(UI.el('div', { class: 'pcard-name' }, person.name));
+      info.appendChild(UI.el('div', { class: 'pcard-rel' }, person.rel));
+      if (person.note) info.appendChild(UI.el('div', { class: 'pcard-note' }, person.note));
+      const del = UI.el('button', { class: 'pcard-del', 'aria-label': `Remove ${person.name}`, title: 'Remove' }, '✕');
+      del.addEventListener('click', e => { e.stopPropagation(); deletePerson(i); });
+      card.addEventListener('click', () => openEdit(i));
+      card.appendChild(info);
+      card.appendChild(del);
+      c.appendChild(card);
+    });
+  }
+
+  function openAdd() {
+    editingIdx = null;
+    UI.setText('personModalTitle', 'Add a Person');
+    document.getElementById('pmName').value = '';
+    document.getElementById('pmRel').value = '';
+    document.getElementById('pmNote').value = '';
+    UI.openModal('personModal');
+  }
+
+  function openEdit(i) {
+    editingIdx = i;
+    const p = State.profile.people[i];
+    UI.setText('personModalTitle', 'Edit Person');
+    document.getElementById('pmName').value = p.name;
+    document.getElementById('pmRel').value = p.rel;
+    document.getElementById('pmNote').value = p.note || '';
+    UI.openModal('personModal');
+  }
+
+  function savePerson() {
+    const name = Sanitizer.field(document.getElementById('pmName').value, 60);
+    const rel = Sanitizer.field(document.getElementById('pmRel').value, 60);
+    const note = Sanitizer.field(document.getElementById('pmNote').value, 200);
+    if (!name) { UI.toast('Please enter a name'); return; }
+    if (!rel) { UI.toast('Please enter the relationship'); return; }
+
+    if (editingIdx !== null) {
+      State.profile.people[editingIdx] = { name, rel, note };
+    } else {
+      State.profile.people.push({ name, rel, note });
+    }
+    Storage.saveProfile(State.profile);
+    UI.closeModal('personModal');
+    draw();
+    UI.toast(editingIdx !== null ? 'Updated 💚' : `${name} added 💚`);
+  }
+
+  function deletePerson(i) {
+    const name = State.profile.people[i].name;
+    if (!confirm(`Remove ${name}?`)) return;
+    State.profile.people.splice(i, 1);
+    Storage.saveProfile(State.profile);
+    draw();
+    UI.toast(`${name} removed`);
+  }
+
+  return { draw, openAdd, savePerson };
+})();
+
+
+/* ═══════════════════════════════════════════════
+   REMINDERS MODULE
+   ═══════════════════════════════════════════════ */
+const RemindersModule = (() => {
+  function draw() {
+    const c = document.getElementById('remC');
+    if (!c) return;
+    c.textContent = '';
+
+    const reminders = State.profile.reminders;
+    if (!reminders.length) {
+      const empty = UI.el('div', { class: 'dis' });
+      empty.appendChild(UI.el('div', { class: 'dis-t' }, 'No reminders yet'));
+      empty.appendChild(UI.el('div', { class: 'dis-s' }, 'Add gentle nudges — drink water, take a break, call a friend. Small acts of self-care matter.'));
+      c.appendChild(empty);
+      return;
+    }
+
+    reminders.forEach((r, i) => {
+      const card = UI.el('div', { class: 'rcard' });
+      const dot = UI.el('div', { class: 'rcard-dot' });
+      const content = UI.el('div', { style: { flex: '1' } });
+      content.appendChild(UI.el('div', { class: 'rcard-text' }, r.text));
+      if (r.date) {
+        const dateEl = UI.el('div', { class: 'rcard-date' }, `📅 ${r.date}`);
+        content.appendChild(dateEl);
+      }
+      const del = UI.el('button', { class: 'del-btn', 'aria-label': 'Remove reminder', title: 'Remove' }, '✕');
+      del.addEventListener('click', () => deleteReminder(i));
+      card.appendChild(dot);
+      card.appendChild(content);
+      card.appendChild(del);
+      c.appendChild(card);
+    });
+  }
+
+  function openAdd() {
+    document.getElementById('rmText').value = '';
+    document.getElementById('rmDate').value = '';
+    UI.openModal('remModal');
+  }
+
+  function saveReminder() {
+    const text = Sanitizer.field(document.getElementById('rmText').value, 200);
+    const date = Sanitizer.field(document.getElementById('rmDate').value, 100);
+    if (!text) { UI.toast('Please enter a reminder'); return; }
+    State.profile.reminders.push({ text, date });
+    Storage.saveProfile(State.profile);
+    UI.closeModal('remModal');
+    draw();
+    UI.toast('Reminder added 🌿');
+  }
+
+  function deleteReminder(i) {
+    State.profile.reminders.splice(i, 1);
+    Storage.saveProfile(State.profile);
+    draw();
+    UI.toast('Reminder removed');
+  }
+
+  return { draw, openAdd, saveReminder };
+})();
+
+
+/* ═══════════════════════════════════════════════
+   SETTINGS MODULE
+   ═══════════════════════════════════════════════ */
+const SettingsModule = (() => {
+  function draw() {
+    const c = document.getElementById('setC');
+    if (!c) return;
+    c.textContent = '';
+
+    const hasKey = !!State.apiKey;
+
+    // API Key section
+    const keyCard = UI.el('div', { class: 'sc' });
+    keyCard.appendChild(UI.el('div', { class: 'st2' }, '🔑 AI Companion Key'));
+
+    // Security warning
+    const warn = UI.el('div', { class: 'key-warning' });
+    warn.textContent = '⚠️ Security note: For personal use only. Your API key is stored in your browser and sent directly to Anthropic. Never share this device or key with others. For a deployed app, use a backend proxy instead.';
+    keyCard.appendChild(warn);
+
+    keyCard.appendChild(UI.el('div', { class: 'ss' }, 'Connect your Anthropic API key to unlock personalised, empathetic AI responses in Chat.'));
+
+    const keyInput = UI.el('input', {
+      type: 'password',
+      id: 'sec-key-input',
+      placeholder: 'sk-ant-…',
+      'aria-label': 'API key input',
+      style: {
+        width: '100%', padding: '10px 13px',
+        border: `1.5px solid ${hasKey ? 'var(--green)' : 'var(--border2)'}`,
+        borderRadius: 'var(--r3)', fontSize: '13px', fontFamily: 'inherit',
+        background: 'var(--cream2)', color: 'var(--text)', outline: 'none',
+        marginBottom: '10px', transition: 'border-color .2s',
+      },
+    });
+    keyCard.appendChild(keyInput);
+
+    const btnRow = UI.el('div', { style: { display: 'flex', gap: '8px', flexWrap: 'wrap' } });
+    const saveBtn = UI.el('button', { class: 'sbtn p', onclick: saveKey }, 'Save key');
+    btnRow.appendChild(saveBtn);
+    if (hasKey) {
+      const removeBtn = UI.el('button', { class: 'sbtn dd', onclick: removeKey }, 'Remove key');
+      btnRow.appendChild(removeBtn);
+    }
+    keyCard.appendChild(btnRow);
+
+    const hint = UI.el('div', { style: { fontSize: '11px', color: 'var(--text3)', marginTop: '8px' } });
+    hint.textContent = 'Get your key at console.anthropic.com. It is stored only on this device.';
+    keyCard.appendChild(hint);
+    c.appendChild(keyCard);
+
+    // Privacy
+    const privCard = UI.el('div', { class: 'sc' });
+    privCard.appendChild(UI.el('div', { class: 'st2' }, '🔐 Data & Privacy'));
+    privCard.appendChild(UI.el('div', { class: 'ss' }, 'Your profile data lives in your browser\'s local storage. When you send a chat message, that message plus a brief context summary (name, feelings, role) is sent to Anthropic\'s API to generate a response. Anthropic\'s privacy policy applies to that data. No other data leaves your device.'));
+
+    const badges = UI.el('div', { style: { display: 'flex', gap: '6px', flexWrap: 'wrap', marginBottom: '10px' } });
+    ['✓ Local storage', '✓ No account needed', '✓ No tracking by Sanctuary'].forEach(label => {
+      const badge = UI.el('span', {
+        style: { fontSize: '12px', color: 'var(--green-xl)', background: 'var(--green-bg)', padding: '4px 12px', borderRadius: '20px', fontWeight: '600' }
+      }, label);
+      badges.appendChild(badge);
+    });
+    privCard.appendChild(badges);
+    c.appendChild(privCard);
+
+    // Export
+    const expCard = UI.el('div', { class: 'sc' });
+    expCard.appendChild(UI.el('div', { class: 'st2' }, '📤 Export my data'));
+    expCard.appendChild(UI.el('div', { class: 'ss' }, 'Download a copy of your profile and notes as JSON. Your API key is never included in exports.'));
+    expCard.appendChild(UI.el('button', {
+      class: 'sbtn p',
+      onclick: () => { Storage.exportData(State.profile); UI.toast('Exported 📤'); }
+    }, 'Download export'));
+    c.appendChild(expCard);
+
+    // Delete
+    const delCard = UI.el('div', { class: 'sc', style: { borderColor: '#FECACA' } });
+    delCard.appendChild(UI.el('div', { class: 'st2', style: { color: '#DC2626' } }, '🗑️ Delete all data'));
+    delCard.appendChild(UI.el('div', { class: 'ss' }, 'Permanently removes everything stored on this device. This cannot be undone.'));
+    delCard.appendChild(UI.el('button', { class: 'sbtn dd', onclick: nukeAll }, 'Delete everything'));
+    c.appendChild(delCard);
+
+    // Crisis
+    const crisisCard = UI.el('div', { class: 'sc', style: { background: 'var(--green-bg)', borderColor: 'var(--green-bg2)' } });
+    crisisCard.appendChild(UI.el('div', { class: 'st2', style: { color: 'var(--green-xl)' } }, '🆘 Crisis resources'));
+    crisisCard.appendChild(UI.el('div', { class: 'ss' }, 'If you are in crisis or need immediate help, please reach out to a real person:'));
+    const crisisLine1 = UI.el('div', { style: { fontSize: '13px', color: 'var(--green-xl)', fontWeight: '700', marginTop: '4px' } },
+      '📞 988 Suicide & Crisis Lifeline (US) — call or text 988');
+    const crisisLine2 = UI.el('div', { style: { fontSize: '13px', color: 'var(--green-xl)', fontWeight: '700' } },
+      '📞 Crisis Text Line — text HOME to 741741');
+    const crisisLine3 = UI.el('div', { style: { fontSize: '13px', color: 'var(--green-xl)', fontWeight: '700' } },
+      '📞 iCall (India) — 9152987821');
+    const intlLink = document.createElement('div');
+    intlLink.style.cssText = 'font-size:12px;color:var(--green-d);margin-top:6px;';
+    intlLink.textContent = 'International: ';
+    const a = document.createElement('a');
+    a.href = 'https://findahelpline.com';
+    a.target = '_blank';
+    a.rel = 'noopener noreferrer';
+    a.style.cssText = 'color:var(--green);font-weight:600;';
+    a.textContent = 'findahelpline.com';
+    intlLink.appendChild(a);
+    [crisisLine1, crisisLine2, crisisLine3, intlLink].forEach(el => crisisCard.appendChild(el));
+    c.appendChild(crisisCard);
+  }
+
+  function saveKey() {
+    const input = document.getElementById('sec-key-input');
+    if (!input) return;
+    const k = input.value.trim();
+    if (!k) { UI.toast('Please enter an API key'); return; }
+    if (!k.startsWith('sk-')) { UI.toast('API key should start with sk-'); return; }
+    // Do NOT store API key in localStorage in production — use session only
+    // For production: use your backend proxy and never expose the key client-side
+    State.setApiKey(k);
+    // Only store in sessionStorage (cleared when tab closes) — safer than localStorage
+    try { sessionStorage.setItem('snct_key_tmp', k); } catch {}
+    UI.toast('API key saved ✓');
+    draw();
+    // Trigger greeting if chat is empty
+    const msgs = document.getElementById('msgs');
+    if (msgs && msgs.children.length <= 2) {
+      ChatModule.callAI(`Greet ${State.profile.nick} warmly. Let them know their AI companion is ready. Be warm and brief.`);
+    }
+  }
+
+  function removeKey() {
+    State.setApiKey('');
+    try { sessionStorage.removeItem('snct_key_tmp'); } catch {}
+    UI.toast('API key removed');
+    draw();
+  }
+
+  function nukeAll() {
+    if (!confirm('Delete ALL your Sanctuary data permanently?\n\nThis cannot be undone.')) return;
+    Storage.clearAll();
+    State.setApiKey('');
+    try { sessionStorage.clear(); } catch {}
+    UI.toast('All data deleted');
+    setTimeout(() => location.reload(), 1200);
+  }
+
+  return { draw };
+})();
+
+
+/* ═══════════════════════════════════════════════
+   PROFILE MODULE
+   ═══════════════════════════════════════════════ */
+const ProfileModule = (() => {
+  function openEdit() {
+    const p = State.profile;
+    document.getElementById('en').value = p.nick || '';
+    document.getElementById('et').value = p.title || '';
+    document.getElementById('es').value = p.work.stress || '';
+    document.getElementById('esy').value = p.health.symptoms.join(', ') || '';
+    document.getElementById('eft').value = (p.identity.freetime || []).join(', ') || '';
+    document.getElementById('efe').value = p.mind.feelings.join(', ') || '';
+    document.getElementById('etr').value = (p.mind.triggers || []).join(', ') || '';
+    document.getElementById('esr').value = (p.mind.stressRelief || []).join(', ') || '';
+    document.getElementById('esl').value = p.health.sleep || '';
+    UI.openModal('em');
+  }
+
+  function saveEdit() {
+    const p = State.profile;
+    const name = Sanitizer.field(document.getElementById('en').value, 60);
+    if (!name) { UI.toast('Please enter your name'); return; }
+
+    p.nick = name;
+    p.title = Sanitizer.field(document.getElementById('et').value, 80);
+    p.work.stress = Sanitizer.field(document.getElementById('es').value, 40);
+    p.health.symptoms = Sanitizer.csvToArray(document.getElementById('esy').value);
+    p.identity.freetime = Sanitizer.csvToArray(document.getElementById('eft').value);
+    p.mind.feelings = Sanitizer.csvToArray(document.getElementById('efe').value);
+    p.mind.triggers = Sanitizer.csvToArray(document.getElementById('etr').value);
+    p.mind.stressRelief = Sanitizer.csvToArray(document.getElementById('esr').value);
+    p.health.sleep = Sanitizer.field(document.getElementById('esl').value, 100);
+
+    Storage.saveProfile(p);
+    updateSidebarIdentity();
+    UI.closeModal('em');
+    App.drawCurrentView();
+    UI.toast('Profile updated ✓');
+  }
+
+  return { openEdit, saveEdit };
+})();
+
+
+/* ═══════════════════════════════════════════════
+   APP — bootstrap & tab routing
+   ═══════════════════════════════════════════════ */
+const App = (() => {
+  const TABS = {
+    Chat:     { title: 'Chat',      sub: 'A gentle space to share and be heard' },
+    Breathe:  { title: 'Breathe',   sub: 'Guided breathing & calm exercises' },
+    Health:   { title: 'Health',    sub: 'Your symptoms, sleep, and mood patterns' },
+    People:   { title: 'People',    sub: 'The meaningful relationships in your life' },
+    Reminders:{ title: 'Reminders', sub: 'Little nudges to take care of yourself' },
+    Settings: { title: 'Settings',  sub: 'API key, privacy and data options' },
+  };
+
+  function openApp() {
+    const nameInput = document.getElementById('loginName');
+    const nameErr = document.getElementById('nameErr');
+    const name = Sanitizer.field(nameInput?.value || '', 60);
+
+    // Validate
+    if (!name) {
+      nameInput?.classList.add('error');
+      if (nameErr) nameErr.textContent = 'Please enter your name to continue.';
+      nameInput?.focus();
+      return;
+    }
+    if (!document.getElementById('con1').checked || !document.getElementById('con2').checked) {
+      UI.toast('Please confirm both checkboxes to continue');
+      return;
+    }
+
+    nameInput?.classList.remove('error');
+    if (nameErr) nameErr.textContent = '';
+
+    // Build profile
+    const p = State.profile;
+    p.nick = name;
+    const role = Sanitizer.field(document.getElementById('loginRole')?.value || '', 80);
+    const mood = Sanitizer.field(document.getElementById('loginMood')?.value || '', 200);
+    if (role) p.title = role;
+    if (mood) p.mind.feelings = [mood];
+
+    Storage.saveProfile(p);
+    Storage.saveConsent({ accepted: true, date: Date.now() });
+
+    document.getElementById('consentEl').classList.add('hide');
+    document.getElementById('appEl').classList.remove('hide');
+    setupApp();
+  }
+
+  function setupApp() {
+    // Load persisted API key from session (never localStorage for keys in production)
+    try {
+      const sessionKey = sessionStorage.getItem('snct_key_tmp');
+      if (sessionKey) State.setApiKey(sessionKey);
+    } catch {}
+
+    updateSidebarIdentity();
+    selectTab('Chat');
+    Voice.init();
+
+    // Restore chat history
+    ChatModule.loadHistory();
+
+    // Composer input handler
+    const ci = document.getElementById('ci');
+    if (ci) {
+      ci.addEventListener('input', () => {
+        document.getElementById('snd').disabled = !ci.value.trim();
+        ci.style.height = 'auto';
+        ci.style.height = Math.min(ci.scrollHeight, 120) + 'px';
+        updateCharCount(ci.value);
+      });
+      ci.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' && !e.shiftKey) {
+          e.preventDefault();
+          ChatModule.send();
+        }
+      });
+    }
+
+    // Close modals on backdrop click
+    ['em', 'personModal', 'remModal'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.addEventListener('click', e => { if (e.target === el) UI.closeModal(id); });
+    });
+
+    // Trigger greeting if key exists
+    if (State.apiKey) {
+      setTimeout(() => {
+        const msgs = document.getElementById('msgs');
+        if (msgs && msgs.children.length <= 1) {
+          ChatModule.callAI(`Greet ${State.profile.nick} warmly by name. Be gentle, empathetic, and ask one soft open question about how they are feeling today.`);
+        }
+      }, 600);
+    }
+  }
+
+  function selectTab(name) {
+    if (!TABS[name]) return;
+    State.setCurrentTab(name);
+
+    // Update nav items
+    document.querySelectorAll('.ni').forEach(n => {
+      const isActive = n.dataset.tab === name;
+      n.classList.toggle('on', isActive);
+      n.setAttribute('aria-selected', isActive ? 'true' : 'false');
+    });
+
+    // Show/hide views
+    document.querySelectorAll('.view').forEach(v => v.classList.remove('on'));
+    const view = document.getElementById(name);
+    if (view) view.classList.add('on');
+
+    // Update topbar
+    const t = TABS[name];
+    UI.setText('topbarTitle', t.title);
+    UI.setText('topbarSub', t.sub);
+
+    // Topbar action button
+    const topbar = document.getElementById('topbar');
+    const oldBtn = topbar?.querySelector('.topbar-action');
+    if (oldBtn) oldBtn.remove();
+    if (name === 'People') {
+      const btn = UI.el('button', { class: 'topbar-action', onclick: PeopleModule.openAdd }, '+ Add person');
+      topbar?.appendChild(btn);
+    }
+    if (name === 'Reminders') {
+      const btn = UI.el('button', { class: 'topbar-action', onclick: RemindersModule.openAdd }, '+ Add reminder');
+      topbar?.appendChild(btn);
+    }
+    if (name === 'Health') {
+      const btn = UI.el('button', { class: 'topbar-action', onclick: ProfileModule.openEdit }, 'Edit profile');
+      topbar?.appendChild(btn);
+    }
+
+    drawCurrentView();
+  }
+
+  function drawCurrentView() {
+    const name = State.currentTab;
+    if (name === 'Chat') ChatModule.draw();
+    else if (name === 'Breathe') BreatheModule.draw();
+    else if (name === 'Health') HealthModule.draw();
+    else if (name === 'People') PeopleModule.draw();
+    else if (name === 'Reminders') RemindersModule.draw();
+    else if (name === 'Settings') SettingsModule.draw();
+  }
+
+  function updateSidebarIdentity() {
+    const p = State.profile;
+    const initials = p.nick.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2) || '🙋';
+    UI.setText('avEl', initials);
+    UI.setText('sbUN', p.nick || 'You');
+    UI.setText('sbUR', p.title || 'Welcome back ✨');
+  }
+
+  function quickMood(label, emoji) {
+    document.querySelectorAll('.mood-btn').forEach(b => b.classList.remove('on'));
+    event?.currentTarget?.classList.add('on');
+    if (!State.profile.mind.feelings.includes(label)) State.profile.mind.feelings.push(label);
+    Storage.saveProfile(State.profile);
+    UI.toast(`Mood logged: ${emoji} ${label}`);
+
+    if (State.currentTab === 'Chat') {
+      ChatModule.addMessage('ai', `I see you're feeling ${label.toLowerCase()} right now, ${State.profile.nick}. That's okay 💚 Want to talk about it?`, true);
+    }
+  }
+
+  // Bootstrap
+  function boot() {
+    // Load persisted profile
+    const saved = Storage.loadProfile();
+    if (saved) {
+      State.setProfile({ ...State.profile, ...saved });
+    }
+
+    // Check if returning user
+    const consent = Storage.loadConsent();
+    if (consent?.accepted) {
+      document.getElementById('consentEl').classList.add('hide');
+      document.getElementById('appEl').classList.remove('hide');
+      setupApp();
+    }
+  }
+
+  return { openApp, setupApp, selectTab, drawCurrentView, updateSidebarIdentity, quickMood, boot };
+})();
+
+// Global aliases for inline HTML handlers
+const updateSidebarIdentity = () => App.updateSidebarIdentity();
+
+// Boot on load
+window.addEventListener('DOMContentLoaded', () => App.boot());
+</script>
+</body>
+</html>
